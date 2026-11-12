@@ -1,3 +1,7 @@
+!\[CI](https://github.com/vangalasruthi/daily-product-metrics/actions/workflows/ci.yml/badge.svg)
+
+
+
 \# Daily Product Metrics Pipeline
 
 
