@@ -18,6 +18,14 @@ This project reads raw sales transaction data, calculates product-level metrics,
 
 
 
+\## Business Impact
+
+
+
+This pipeline helps retail teams track daily sales performance at the product level. By automating metric calculation and validation, it reduces manual reporting effort and provides reliable daily insights for inventory and sales decisions.
+
+
+
 \## Features
 
 
