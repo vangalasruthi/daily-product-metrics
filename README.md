@@ -2,75 +2,93 @@
 
 
 
-\## Objective
-
-Maintain daily product sales metrics from incremental transaction events.
-
-Handle updates, reversals, late events, and safe reruns.
+Python-based ETL pipeline that processes retail sales transactions and generates daily product-level metrics with automated tests.
 
 
 
-\## Technology
+\## Overview
+
+
+
+This project reads raw sales transaction data, calculates product-level metrics, and outputs a clean CSV file for reporting.
+
+
+
+\## Features
+
+
+
+\- Reads JSONL transaction files
+
+\- Calculates active transaction count, units sold, and sales amount
+
+\- Generates daily product metrics CSV
+
+\- Automated tests with pytest
+
+\- CI workflow with GitHub Actions
+
+
+
+\## Project Structure
+
+
+
+\- `src/` - source code
+
+\- `tests/` - test files
+
+\- `data/` - input and output files
+
+\- `docs/` - documentation
+
+\- `.github/workflows/` - CI workflow
+
+
+
+\## How to Run
+
+
+
+1\. Install dependencies:
+
+&#x20;  ```bash
+
+&#x20;  pip install -r requirements.txt
+
+&#x20;  ```
+
+
+
+2\. Run the pipeline:
+
+&#x20;  ```bash
+
+&#x20;  python src/daily\_metrics.py
+
+&#x20;  ```
+
+
+
+3\. Run tests:
+
+&#x20;  ```bash
+
+&#x20;  python -m pytest -q
+
+&#x20;  ```
+
+
+
+\## Tech Stack
+
+
 
 \- Python
 
-\- SQLite
+\- pandas
 
 \- pytest
 
-
-
-\## Business Rules
-
-\- Each event contains a complete transaction snapshot.
-
-\- Higher transaction versions replace older versions.
-
-\- Duplicate events must not change sales totals.
-
-\- Reversed transactions contribute zero sales.
-
-\- Late events update the affected historical dates.
-
-\- Currency is INR; amounts are stored in paise.
-
-
-
-\## Output
-
-Daily metrics for each product:
-
-\- Active transaction count
-
-\- Units sold
-
-\- Sales amount
-
-
-
-\## Sample Data
-
-\- data/input/products.csv
-
-\- data/input/batch\_001.jsonl
-
-\- data/input/batch\_002.jsonl
-
-
-
-\## Expected Results
-
-After batch 1: 2 active transactions, 2 units, INR 150.
-
-After batch 1 followed by batch 2: 1 active transaction, 1 unit, INR 120.
-
-
-
-\## Project Status
-
-Initial documentation and sample files have been created.
-
-Pipeline implementation and automated tests are not yet complete.
-
-Setup and run instructions will be added after verification.
+\- GitHub Actions
 
