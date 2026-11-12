@@ -1,7 +1,11 @@
 import csv
+import logging
 from pathlib import Path
 
 from current_state import build_current_state
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def aggregate_daily_metrics(current_state):
@@ -9,6 +13,18 @@ def aggregate_daily_metrics(current_state):
 
     for event in current_state.values():
         if event["status"] != "active":
+            continue
+
+        if not event.get("product_id"):
+            logger.warning("Skipping event with missing product_id")
+            continue
+
+        if not isinstance(event.get("quantity"), int) or event["quantity"] < 0:
+            logger.warning("Skipping event with invalid quantity: %s", event)
+            continue
+
+        if not isinstance(event.get("amount_minor"), int) or event["amount_minor"] < 0:
+            logger.warning("Skipping event with invalid amount: %s", event)
             continue
 
         key = (event["business_date"], event["product_id"])
@@ -37,7 +53,15 @@ def main():
         project_dir / "data" / "input" / "batch_002.jsonl",
     ]
 
+    for input_file in input_files:
+        if not input_file.exists():
+            logger.error("Input file not found: %s", input_file)
+            raise FileNotFoundError(f"Input file not found: {input_file}")
+
+    logger.info("Building current state from %d input files", len(input_files))
     current_state = build_current_state(input_files)
+
+    logger.info("Aggregating daily metrics")
     metrics = aggregate_daily_metrics(current_state)
 
     output_dir = project_dir / "data" / "output"
@@ -57,8 +81,8 @@ def main():
         writer.writeheader()
         writer.writerows(metrics)
 
-    print(f"Output rows: {len(metrics)}")
-    print(f"Saved: {output_file}")
+    logger.info("Output rows: %d", len(metrics))
+    logger.info("Saved: %s", output_file)
 
 
 if __name__ == "__main__":
