@@ -1,0 +1,2 @@
+{"event_id":"evt_001","transaction_id":"txn_001","version":1,"product_id":"product_001","business_date":"2026-11-10","quantity":1,"amount_minor":10000,"currency":"INR","status":"active","source_updated_at":"2026-11-10T10:00:00+05:30","schema_version":1}
+{"event_id":"evt_002","transaction_id":"txn_002","version":1,"product_id":"product_001","business_date":"2026-11-10","quantity":1,"amount_minor":5000,"currency":"INR","status":"active","source_updated_at":"2026-11-10T11:00:00+05:30","schema_version":1}
